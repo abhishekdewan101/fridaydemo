@@ -222,7 +222,7 @@ public class DeviceFragment extends Fragment {
                                              builder.addPart("images[image]", fileBody);
                                              builder.addPart("images[to]", new StringBody(to));
                                              builder.addPart("images[from]",new StringBody(from));
-                                             builder.addPart("images[uuid]",new StringBody(USER_ID+" - "+Calendar.getInstance().getTime()));
+                                             builder.addPart("images[uuid]",new StringBody(USER_ID+" - "+file.getName()+" - "+Calendar.getInstance().getTime()));
 
                                              HttpEntity entity = builder.build();
 

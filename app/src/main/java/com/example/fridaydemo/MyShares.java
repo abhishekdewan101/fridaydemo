@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by a.dewan on 8/5/14.
@@ -83,19 +84,21 @@ public class MyShares extends Fragment {
                     JSONArray jsonArray = new JSONArray(builder.toString());
                     String [] imageURLs = new String[jsonArray.length()];
                     String [] to = new String[jsonArray.length()];
+                    String [] imageids = new String[jsonArray.length()];
                     for(int i=0;i<jsonArray.length();i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("image");
                         imageURLs[i] = jsonObject.getString("url");
                         to[i] = jsonArray.getJSONObject(i).getString("to");
+                        imageids[i] = jsonArray.getJSONObject(i).getString("uuid");
                     }
 
-                    getNames(rootView, imageURLs, to);
+                    getNames(rootView, imageURLs, to,imageids);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
-            private void getNames(View rootView, String[] imageURLs, String[] to) {
+            private void getNames(View rootView, String[] imageURLs, String[] to,String[] imageids) {
                 String names[] = new String[to.length];
                 for(int i=0;i<names.length;i++){
                     HttpClient client = new DefaultHttpClient();
@@ -130,10 +133,10 @@ public class MyShares extends Fragment {
                     }
                 }
 
-                getPhotos(rootView,imageURLs,names);
+                getPhotos(rootView,imageURLs,names,imageids);
             }
 
-            private void getPhotos(View rootView, final String[] imageURLs,final String[] to) {
+            private void getPhotos(View rootView, final String[] imageURLs,final String[] to,final String[] imageids) {
                 Bitmap[] images = new Bitmap[imageURLs.length];
 
                 for(int i=0;i<imageURLs.length;i++){
@@ -147,23 +150,80 @@ public class MyShares extends Fragment {
                     images[i] = getBitmapFromURL(imageURLs[i]);
 
                 };
-                populateGridView(rootView,images,to);
+                populateGridView(rootView,images,to,imageids);
             }
 
-            private void populateGridView(final View rootView, final Bitmap[] images,final String[]to) {
+            private void populateGridView(final View rootView, final Bitmap[] images,final String[]to,final String[]imageids) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         final GridView gridView = (GridView)  rootView.findViewById(R.id.mysharelist);
 
-                        gridView.setAdapter(new ShareAdapter(rootView.getContext(),images,to));
+                        gridView.setAdapter(new ShareAdapter(getActivity().getApplicationContext(),images,to,imageids));
 
-                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                
-                            }
-                        });
+//                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+//                                deletePhoto(rootView,imageids[i]);
+//                                getActivity().runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        gridView.setAdapter(new UpdateAdapter(rootView.getContext(),getPhotoAfterDelete(images, i),getAfterDelete(to, i)));
+//                                        synchronized (gridView) {
+//                                            gridView.notify();
+//                                        }
+//                                    }
+//                                });
+//                            }
+//
+//
+//                            private Object[] getPhotoAfterDelete(Bitmap[]array,int position){
+//                                ArrayList<Bitmap> charList = new ArrayList<Bitmap>(0);
+//
+//                                for (int i= 0; i < array.length; i++) {
+//                                    if (i != position) {
+//                                        charList.add(array[i]);
+//                                    }
+//                                }
+//
+//                                return charList.toArray();
+//                            }
+//
+//                            private Object[] getAfterDelete(String[]array,int position){
+//                                ArrayList<String> charList = new ArrayList<String>(0);
+//
+//                                for (int i= 0; i < array.length; i++) {
+//                                    if (i != position) {
+//                                        charList.add(array[i]);
+//                                    }
+//                                }
+//
+//                               return charList.toArray();
+//                            }
+//                            private void deletePhoto(final View rootView,final String imageid) {
+//                                new Thread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        HttpClient client = new DefaultHttpClient();
+//                                        HttpGet httpGet = new HttpGet(SHARE_MANAGER+"images/delete?uuid="+ URLEncoder.encode(imageid));
+//                                        try {
+//                                            HttpResponse response = client.execute(httpGet);
+//                                            StatusLine statusLine = response.getStatusLine();
+//                                            int statusCode = statusLine.getStatusCode();
+//                                            if (statusCode == 200) {
+//
+//                                            } else {
+//                                                Log.e("ERROR IN READING DATA", "FAILED TO GET ANY DATA");
+//                                            }
+//                                        } catch (ClientProtocolException e) {
+//                                            e.printStackTrace();
+//                                        } catch (IOException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//                                }).start();
+//                            }
+//                        });
                     }
                 });
 
