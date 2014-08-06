@@ -67,7 +67,6 @@ public class DeviceFragment extends Fragment {
 
 
 
-
         final View rootView = inflater.inflate(R.layout.devicefragment, container, false);
 
         getUserNames(rootView,intent);
@@ -202,6 +201,7 @@ public class DeviceFragment extends Fragment {
                                           for(int counter=0;counter<imageUris.size();counter++){
                                               Uri tempUri = imageUris.get(counter);
                                               handleFile(tempUri,USER_ID,userid[i].toString());
+
                                           }
                                       }
                                   }
@@ -223,6 +223,7 @@ public class DeviceFragment extends Fragment {
                                              builder.addPart("images[to]", new StringBody(to));
                                              builder.addPart("images[from]",new StringBody(from));
                                              builder.addPart("images[uuid]",new StringBody(USER_ID+" - "+file.getName()+" - "+Calendar.getInstance().getTime()));
+                                             builder.addPart("images[newvalue]",new StringBody("yes"));
 
                                              HttpEntity entity = builder.build();
 
@@ -233,7 +234,8 @@ public class DeviceFragment extends Fragment {
                                             getActivity().runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                   Toast.makeText(getActivity().getApplicationContext(),"File Shared ",Toast.LENGTH_LONG).show();
+
+                                                   Toast.makeText(getActivity().getApplicationContext(),"File Shared ",Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                          }catch(IOException e){

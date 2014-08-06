@@ -1,6 +1,11 @@
 package com.example.fridaydemo;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -31,6 +36,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 
 /**
  * Created by a.dewan on 8/5/14.
@@ -47,6 +53,17 @@ public class Shared extends Fragment {
         View rootView = inflater.inflate(R.layout.shared, container, false);
         setPhotos(rootView);
         Toast.makeText(getActivity().getApplicationContext(),"Downloading files. Please be paitent!",Toast.LENGTH_SHORT).show();
+        AlarmManager am = (AlarmManager) getActivity().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent downloadingIntent = new Intent(getActivity().getApplicationContext(),DownloadBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(),0,downloadingIntent,0);
+
+
+        int notificationId = 001;
+
+        NotificationManager notificationManager = (NotificationManager) getActivity().getApplicationContext().getSystemService(getActivity().getApplicationContext().NOTIFICATION_SERVICE);
+        notificationManager.cancel(notificationId);
+
+        am.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis(),(1000*30*1),pendingIntent);
         return rootView;
     }
 
@@ -83,10 +100,14 @@ public class Shared extends Fragment {
                     for(int i=0;i<jsonArray.length();i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("image");
                         imageURLs[i] = jsonObject.getString("url");
+                        HttpGet setGet = new HttpGet(SHARE_MANAGER+"images/setnew?uuid="+ URLEncoder.encode(jsonArray.getJSONObject(i).getString("uuid")));
+                        client.execute(setGet);
                     }
 
                     getPhotos(rootView, imageURLs);
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e){
                     e.printStackTrace();
                 }
             }

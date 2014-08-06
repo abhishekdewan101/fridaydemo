@@ -55,6 +55,8 @@ public class ImageAdapter extends BaseAdapter {
                     .findViewById(R.id.contactname);
             textView.setText(numbers[i].toString());
 
+            
+
         } else {
             gridView = (View) view;
         }

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MyActivity"
-            android:label="@string/app_name" >
+            android:label="AirShare" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -43,6 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".DownloadBroadcast"/>
     </application>
 
 </manifest>
