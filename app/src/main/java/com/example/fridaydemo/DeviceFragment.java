@@ -193,7 +193,6 @@ public class DeviceFragment extends Fragment {
                               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                   if(Intent.ACTION_SEND.equals(action) && type !=null){
                                       final Uri imageUri = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
-
                                       handleFile(imageUri,USER_ID,userid[i].toString());
                                   }else if(Intent.ACTION_SEND_MULTIPLE.equals(action) && type!=null){
                                       ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
@@ -201,7 +200,6 @@ public class DeviceFragment extends Fragment {
                                           for(int counter=0;counter<imageUris.size();counter++){
                                               Uri tempUri = imageUris.get(counter);
                                               handleFile(tempUri,USER_ID,userid[i].toString());
-
                                           }
                                       }
                                   }

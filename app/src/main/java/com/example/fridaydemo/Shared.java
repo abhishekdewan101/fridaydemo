@@ -152,7 +152,6 @@ public class Shared extends Fragment {
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Bitmap.createScaledBitmap(myBitmap,800,800,true);
             return myBitmap;
         } catch (IOException e) {
             e.printStackTrace();

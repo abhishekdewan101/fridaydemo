@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -55,7 +56,14 @@ public class ImageAdapter extends BaseAdapter {
                     .findViewById(R.id.contactname);
             textView.setText(numbers[i].toString());
 
-            
+//            final ImageView imageView = (ImageView)gridView.findViewById(R.id.imageshared);
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    imageView.setImageResource(R.drawable.device2);
+//                    imageView.setEnabled(false);
+//                }
+//            });
 
         } else {
             gridView = (View) view;
