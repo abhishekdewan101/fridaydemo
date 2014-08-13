@@ -6,12 +6,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/logo"
+        android:label="AB Share"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MyActivity"
-            android:label="AirShare" >
+            android:label="1-Share" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".main"
-            android:label="Share Demo" >
+            android:label="Gallery" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

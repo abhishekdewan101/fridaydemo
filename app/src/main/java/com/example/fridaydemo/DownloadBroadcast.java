@@ -35,7 +35,7 @@ import java.net.URLEncoder;
  * Created by a.dewan on 8/6/14.
  */
 public class DownloadBroadcast extends BroadcastReceiver{
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
     String USER_ID = Build.MODEL+Build.SERIAL;
 
     @Override
@@ -77,7 +77,7 @@ public class DownloadBroadcast extends BroadcastReceiver{
 
                         NotificationCompat.Builder notificationBuilder =
                                 new NotificationCompat.Builder(context)
-                                        .setSmallIcon(R.drawable.ic_launcher)
+                                        .setSmallIcon(R.drawable.logo_small)
                                         .setContentTitle("New Photos Available")
                                         .setContentText(jsonArray.length() + " new photos are available to view")
                                         .setContentIntent(pendingIntent);

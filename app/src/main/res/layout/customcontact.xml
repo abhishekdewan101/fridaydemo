@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="James Bond"
-        android:textAlignment="center"
+        android:gravity="center"
         android:id="@+id/contactname"
         android:layout_below="@+id/imageshared"
         android:layout_centerHorizontal="true"/>

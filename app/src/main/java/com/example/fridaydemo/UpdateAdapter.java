@@ -28,7 +28,7 @@ public class UpdateAdapter extends BaseAdapter {
 
     Object[] images;
 
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
 
     Object[] to;
 

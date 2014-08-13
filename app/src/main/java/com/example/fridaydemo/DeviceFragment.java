@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ import java.util.List;
 public class DeviceFragment extends Fragment {
 
     String USER_ID = Build.MODEL+Build.SERIAL;
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -194,12 +195,14 @@ public class DeviceFragment extends Fragment {
                                   if(Intent.ACTION_SEND.equals(action) && type !=null){
                                       final Uri imageUri = (Uri)intent.getParcelableExtra(Intent.EXTRA_STREAM);
                                       handleFile(imageUri,USER_ID,userid[i].toString());
+                                      ((ImageView)((RelativeLayout)gridView.getChildAt(i)).getChildAt(0)).setImageResource(R.drawable.device2);
                                   }else if(Intent.ACTION_SEND_MULTIPLE.equals(action) && type!=null){
                                       ArrayList<Uri> imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
                                       if(imageUris!=null){
                                           for(int counter=0;counter<imageUris.size();counter++){
                                               Uri tempUri = imageUris.get(counter);
                                               handleFile(tempUri,USER_ID,userid[i].toString());
+                                              ((ImageView)((RelativeLayout)gridView.getChildAt(i)).getChildAt(0)).setImageResource(R.drawable.device2);
                                           }
                                       }
                                   }

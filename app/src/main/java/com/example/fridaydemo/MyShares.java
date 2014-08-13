@@ -40,7 +40,7 @@ import java.util.ArrayList;
 public class MyShares extends Fragment {
 
     String USER_ID = Build.MODEL+Build.SERIAL;
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,7 +144,9 @@ public class MyShares extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity().getApplicationContext(),"Downloading "+counter+" out of "+imageURLs.length+" images. Please be paitent!",Toast.LENGTH_SHORT).show();
+                            if(imageURLs != null) {
+                                Toast.makeText(getActivity().getApplicationContext(), "Downloading " + counter + " out of " + imageURLs.length + " images. Please be paitent!", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                     images[i] = getBitmapFromURL(imageURLs[i]);

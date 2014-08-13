@@ -30,7 +30,7 @@ import java.util.zip.Inflater;
 public class ShareAdapter extends BaseAdapter {
     Context context;
 
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
 
     ArrayList<Bitmap> images = new ArrayList<Bitmap>();
     ArrayList<String> to = new ArrayList<String>();

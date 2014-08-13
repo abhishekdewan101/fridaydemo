@@ -44,7 +44,7 @@ import java.util.Calendar;
 public class Shared extends Fragment {
 
     String USER_ID = Build.MODEL+Build.SERIAL;
-    String SHARE_MANAGER ="http://4607d262.ngrok.com/";
+    String SHARE_MANAGER ="http://64d5993e.ngrok.com/";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +63,7 @@ public class Shared extends Fragment {
         NotificationManager notificationManager = (NotificationManager) getActivity().getApplicationContext().getSystemService(getActivity().getApplicationContext().NOTIFICATION_SERVICE);
         notificationManager.cancel(notificationId);
 
-        am.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis(),(1000*30*1),pendingIntent);
+        am.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis(),(1000*60*10),pendingIntent);
         return rootView;
     }
 
